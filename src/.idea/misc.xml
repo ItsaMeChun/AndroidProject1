@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/src/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
-        <entry key="..\:/Android/src/app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="..\:/Android/src/app/src/main/res/drawable/border_radius_btn.xml" value="0.163" />
+        <entry key="..\:/Android/src/app/src/main/res/drawable/category_background.xml" value="0.1" />
+        <entry key="..\:/Android/src/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android/src/app/src/main/res/layout/activity_signup.xml" value="0.33" />
+        <entry key="..\:/Android/src/app/src/main/res/layout/activity_signupp.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/src/app/src/main/res/layout/content_signupp.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/src/app/src/main/res/layout/fragment_second.xml" value="0.36666666666666664" />
         <entry key="..\:/src/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
         <entry key="..\:/src/app/src/main/res/layout/login_page.xml" value="0.358695652173913" />
       </map>
