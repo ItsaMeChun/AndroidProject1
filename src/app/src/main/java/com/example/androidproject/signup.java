@@ -1,20 +1,40 @@
 package com.example.androidproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import Helper.helper;
+
+import MD5.hashmd5;
 
 public class signup extends AppCompatActivity {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+    private Button btn_DK;
+    EditText Name, emailLogin, hashPassword, password_Re;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +43,8 @@ public class signup extends AppCompatActivity {
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
+        mapping();
+        handleButtonAll();
     }
 
     private String getTodaysDate()
@@ -97,5 +119,83 @@ public class signup extends AppCompatActivity {
     public void openDatePicker(View view)
     {
         datePickerDialog.show();
+    }
+
+    public void mapping(){
+        btn_DK = findViewById(R.id.btn_Reg);
+        Name = findViewById(R.id.txtName);
+        emailLogin = findViewById(R.id.txtGmail);
+        hashPassword = findViewById(R.id.txtPassword);
+        password_Re = findViewById(R.id.txtPasswordRe);
+    }
+
+    public void handleButtonAll(){
+
+        btn_DK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!validateDK()) return;
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, helper.registerURL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String res = response.toString();
+
+                        if(res.trim().toString().equals("already")){
+                            Toast.makeText(getApplicationContext(),"Account is" + response,Toast.LENGTH_LONG).show();
+                        }else{
+                            openLoginActivity();
+                            Toast.makeText(getApplicationContext(),"Create Account Success" + response,Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+
+                }){
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String,String> hashMap = new HashMap<String,String>();
+                        //Name.getText().toString();
+                        //hashmd5.md5hashing(emailLogin.getText().toString());
+                        //hashmd5.md5hashing(hashPassword.getText().toString());
+                        return hashMap;
+                    }
+                };
+                requestQueue.add(stringRequest);
+            }
+        });
+    }
+
+    private boolean validateDK() {
+        if (Name.getText().length() == 0 || hashPassword.getText().length() == 0 ||
+                password_Re.getText().length() == 0
+        ) {
+            Toast.makeText(signup.this,
+                    "Pass or Username is empty", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!hashPassword.getText().toString().equals(password_Re.getText().toString())) {
+            Toast.makeText(signup.this,
+                    "Pass not math", Toast.LENGTH_LONG).show();
+            return false;
+
+        } else if (Name.getText().length() < 6) {
+            Toast.makeText(signup.this,
+                    "Username > 6", Toast.LENGTH_LONG).show();
+            return false;
+
+        } else {
+            return true;
+        }
+    }
+
+    public  void openLoginActivity(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

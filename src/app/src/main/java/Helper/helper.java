@@ -2,7 +2,7 @@ package Helper;
 
 public class helper {
     public static String localhost = "http://192.168.1.101/model/";
-    public static String registerURL =localhost+ "register.php";
+    public static String registerURL = localhost+ "register.php";
     public static String loginURL = localhost+  "login.php";
     /*public static String getAllNews = localhost+  "getNews.php?page=";
     public static String addCategory = localhost+  "addCategory.php";

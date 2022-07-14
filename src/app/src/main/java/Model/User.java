@@ -2,7 +2,6 @@ package Model;
 
 public class User {
     private String Name, emailLogin, hashPassword, Birthday, create_At;
-    private Integer role;
 
     public String getName() {
         return Name;
@@ -44,12 +43,5 @@ public class User {
         this.create_At = create_At;
     }
 
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
-    }
 
 }
